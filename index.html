@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIXOV VPN – Скоро открытие</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #161B23;
+            color: #ffffff;
+            font-family: 'Unbounded', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Настройки неоновой ауры - здесь мы уменьшили размер */
+        #glow {
+            position: absolute;
+            width: 250px;  /* Было 500px */
+            height: 250px; /* Было 500px */
+            background: radial-gradient(circle, rgba(0, 201, 255, 0.15) 0%, rgba(22, 27, 35, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        /* Контейнер с текстом */
+        .container {
+            z-index: 1;
+            padding: 40px;
+            position: relative;
+            transition: transform 0.1s ease-out;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 20px rgba(0, 201, 255, 0.15);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #a0aec0;
+            margin-top: 0;
+            font-weight: 400;
+        }
+        
+        /* Крутилка-загрузка */
+        .loader {
+            margin-top: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #00C9FF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Адаптация под телефоны */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1rem; }
+            #glow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="glow"></div>
+
+    <div class="container" id="content">
+        <h1>MIXOV VPN</h1>
+        <p>Сайт находится в разработке. Скоро запуск!</p>
+        <div class="loader"></div>
+    </div>
+
+    <script>
+        const glow = document.getElementById('glow');
+        const content = document.getElementById('content');
+
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            content.style.transform = `perspective(1000px) rotateX(${-y * 15}deg) rotateY(${x * 15}deg) translateZ(20px)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            content.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+        });
+    </script>
+</body>
+</html>
